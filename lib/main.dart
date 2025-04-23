@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/home.dart';
 import 'package:myapp/tarif.dart';
 import 'package:myapp/tarif_detay.dart';
 import 'package:myapp/theme_islemleri.dart';
@@ -17,15 +18,7 @@ class TarifApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Tarif Uygulaması',
       theme: tema,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 3.0,
-          title: Text('MYF Soft yemek',style: tema.textTheme.headlineLarge,),
-        ),
-        body: Center(child: Text('Haydi Yemek Pişirelim!',style: tema.textTheme.headlineMedium,),
-        ),
-      ),
+      home: Home(),
     );
   }
 }
