@@ -45,9 +45,20 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView.builder(
           itemCount: Tarif.yemekler.length,
           itemBuilder: (context, index) {
-            return Text(Tarif.yemekler[index].yemekAdi);
+            return tarifOlustur(Tarif.yemekler[index]);
           },
         ),
+      ),
+    );
+  }
+
+  Widget tarifOlustur(Tarif tarif) {
+    return Card(
+      child: Column(
+        children: [
+          Image(image: AssetImage(tarif.yemekResmi)),
+          Text(tarif.yemekAdi),
+        ],
       ),
     );
   }
