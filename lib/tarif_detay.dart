@@ -10,37 +10,60 @@ class TarifDetay extends StatefulWidget {
 }
 
 class _TarifDetayState extends State<TarifDetay> {
+int _sliderDegeri = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Yemek Detay Sayfası"),
+      appBar: AppBar(title: Text("Yemek Detay Sayfası")),
+      body: SafeArea(
+        child: Card(
+          color: Colors.greenAccent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(17.0),
+          ),
+          elevation: 2.0,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image(image: AssetImage(widget.tarif.yemekResmi)),
+              ),
+              SizedBox(height: 10.0),
+              Text(
+                widget.tarif.yemekAdi,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: widget.tarif.malzemeler.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final malzeme = widget.tarif.malzemeler[index];
+                    return Text(
+                      '${malzeme.adet*_sliderDegeri} ${malzeme.olcum} ${malzeme.isim}',
+                    );
+                  },
+                ),
+              ),
+              Slider(
+                  value: _sliderDegeri.toDouble(),
+                  min: 1,
+                  max: 10,
+                  divisions: 10,
+                  label: '${_sliderDegeri*widget.tarif.porsiyon}porsiyon',
+                  onChanged: (double value){
+                    setState(() {
+                      _sliderDegeri = value.round();
+                    },
+                    );
+                  },
+                  activeColor: const Color.fromARGB(255, 54, 209, 244),
+                  inactiveColor: const Color.fromARGB(214, 240, 131, 22),
+                ),
+            ],
+          ),
         ),
-        body: SafeArea( 
-          child:Card(
-            color: Colors.greenAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(17.0),
-            ),
-             elevation: 2.0,
-             child: Column(
-              children: [
-                SizedBox(
-                  height: 300,
-                  width: double.infinity,
-                  child: Image(image: AssetImage(widget.tarif.yemekResmi),),
-                ),
-                SizedBox(height: 10.0),
-                Text(
-                  widget.tarif.yemekAdi,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-                ),
-                SizedBox(height: 10.0)
-              ],
-             ),
-
-          ),
-          ),
-      );
+      ),
+    );
   }
 }
