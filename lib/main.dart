@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/home.dart';
-import 'package:myapp/tarif.dart';
-import 'package:myapp/tarif_detay.dart';
 import 'package:myapp/theme_islemleri.dart';
 
 void main() {

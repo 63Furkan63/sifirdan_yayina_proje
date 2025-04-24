@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/circle_image.dart';
 import 'package:myapp/theme_islemleri.dart';
 
-class AuthorCard extends StatelessWidget {
+class AuthorCard extends StatefulWidget {
   const AuthorCard({
     super.key,
     required this.authorName,
@@ -15,24 +15,33 @@ class AuthorCard extends StatelessWidget {
   final ImageProvider imageProvider;
 
   @override
+  State<AuthorCard> createState() => _AuthorCardState();
+}
+
+class _AuthorCardState extends State<AuthorCard> {
+  bool _isFavori = false;
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16.0),
       child: Row(
-        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              CircleImage(imageProvider: imageProvider, imageRadius: 25),
+              CircleImage(imageProvider: widget.imageProvider, imageRadius: 25),
               SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    authorName,
+                    widget.authorName,
                     style: TemaIslemleri.acikYaziTema.headlineSmall,
                   ),
-                  Text(title, style: TemaIslemleri.acikYaziTema.headlineMedium),
+                  Text(
+                    widget.title,
+                    style: TemaIslemleri.acikYaziTema.headlineMedium,
+                  ),
                 ],
               ),
               SizedBox(width: 15.0),
@@ -40,12 +49,15 @@ class AuthorCard extends StatelessWidget {
           ),
           IconButton(
             iconSize: 25,
-            color: Colors.green,
+            color: Colors.red,
             onPressed: () {
               const snackBar = SnackBar(content: Text('Favorilere Eklendi!'));
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              setState(() {
+                _isFavori = !_isFavori;
+              });
             },
-            icon: Icon(Icons.favorite_border),
+            icon: Icon(_isFavori ? Icons.favorite : Icons.favorite_border),
           ),
         ],
       ),
